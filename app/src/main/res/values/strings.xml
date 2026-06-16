@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Kashmir Voyagers</string>
+    <string name="cash_book_title">Cash Book</string>
+    <string name="cash_in_hand">Cash in Hand</string>
+    <string name="today_balance">Today Balance</string>
+    <string name="history">History</string>
+    <string name="search_hint">Search</string>
+    <string name="cash_in">CASH IN</string>
+    <string name="cash_out">CASH OUT</string>
+    <string name="amount_hint">Amount</string>
+    <string name="description_hint">Description (optional)</string>
+    <string name="save">SAVE</string>
+    <string name="cancel">CANCEL</string>
+    <string name="nav_cash">CASH</string>
+    <string name="nav_stock">STOCK</string>
+    <string name="nav_bill">BILL</string>
+    <string name="nav_staff">STAFF</string>
+    <string name="nav_expense">EXPENSE</string>
+    <string name="profile">Profile</string>
+</resources>
