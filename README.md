@@ -36,12 +36,6 @@ So I built this over a weekend: a single-screen Android app that does exactly wh
 
 ---
 
-## 📸 Screenshots
-
-<img width="1080" height="2400" alt="kashmirVoyagers_app_ss" src="https://github.com/user-attachments/assets/1964ed78-26fc-4fbd-a71a-f5676571392c" />
-
----
-
 ## 🛠️ Tech Stack
 
 | | |
@@ -53,6 +47,13 @@ So I built this over a weekend: a single-screen Android app that does exactly wh
 | **Build** | Gradle (Kotlin DSL) |
 
 ---
+
+## 📸 Screenshots
+
+<img width="1080" height="2400" alt="kashmirVoyagers_app_ss" src="https://github.com/user-attachments/assets/1964ed78-26fc-4fbd-a71a-f5676571392c" />
+
+---
+
 
 ## 🚀 Getting Started
 
@@ -101,47 +102,6 @@ KashmirVoyagers/
 
 ---
 
-
-## 🤝 Contributing
-
-This is a personal project built for a specific trip, but contributions are welcome!
-
-### How to Contribute
-
-1. **Fork** the repository
-2. **Create** a new branch
-```bash
-git checkout -b feature/your-feature-name
-```
-3. **Make** your changes
-4. **Commit** with a clear message
-```bash
-git commit -m "Add: brief description of your change"
-```
-5. **Push** to your branch
-```bash
-git push origin feature/your-feature-name
-```
-6. **Open a Pull Request** on GitHub
-
-### Ideas for Contributions
-
-- 📊 Charts/graphs for expense visualization
-- 🗂️ Category tagging for entries (Food, Transport, Hotel etc.)
-- 🌙 Dark mode support
-- ☁️ Cloud backup / Google Drive sync
-- 👤 Profile screen (currently "Coming Soon")
-- 🌍 Multi-currency support
-- 🔔 Daily reminder notifications
-
-### Guidelines
-
-- Keep it **simple** — this app is meant to be lightweight
-- Follow existing **code style** and naming conventions
-- Test on a **real device** before submitting a PR
-- One feature per pull request please
-
----
 
 ## 📝 License
 
