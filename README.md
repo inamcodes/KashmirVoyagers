@@ -116,4 +116,4 @@ GitHub: [@inamcodes](https://github.com/inamcodes)
 
 ---
 
-> Built with ❤️ for Kashmir travelers. Safe travels, bhai! 🏔️
+> Built with ❤️ for Kashmir travelers. Safe travels, bhai/behin! 🏔️
