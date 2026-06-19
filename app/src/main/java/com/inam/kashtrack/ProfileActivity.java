@@ -66,7 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
         ivProfilePhoto.setOnClickListener(v -> pickImageLauncher.launch("image/*"));
         btnEditName.setOnClickListener(v -> showEditNameDialog());
 
-        btnSetPassword.setOnClickListener(v -> showSetPasswordDialog(false));
+        btnSetPassword.setOnClickListener(v -> Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show());
         btnChangePassword.setOnClickListener(v -> showSetPasswordDialog(true));
         btnRemovePassword.setOnClickListener(v -> confirmRemovePassword());
 

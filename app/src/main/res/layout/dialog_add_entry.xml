@@ -41,7 +41,8 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            android:textColor="#673AB7" />
 
         <Button
             android:id="@+id/btnSave"
@@ -49,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/save" />
+            android:text="@string/save"
+            android:textColor="#673AB7" />
     </LinearLayout>
 </LinearLayout>
