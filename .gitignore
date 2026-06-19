@@ -1,15 +1,111 @@
+# =========================
+# Gradle
+# =========================
+.gradle/
+build/
+**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# Avoid ignoring Gradle wrapper files
+!gradle-wrapper.properties
+
+# =========================
+# Android Studio / IntelliJ
+# =========================
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+.idea/
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/deploymentTargetDropDown.xml
+.idea/gradle.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/codeStyles/
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+
+# =========================
+# Android specific
+# =========================
+*.apk
+*.aab
+*.ap_
+*.aar
+*.dex
+*.class
+
+# Local configuration file (contains SDK path, machine-specific)
 local.properties
+
+# Proguard/R8 generated mapping files
+/app/proguard/
+proguard/
+*.r8.txt
+
+# Generated/output files
+/captures/
+.externalNativeBuild/
+.cxx/
+output.json
+
+# Keystore files (NEVER commit signing keys/passwords)
+*.jks
+*.keystore
+keystore.properties
+
+# =========================
+# Build artifacts / generated code
+# =========================
+bin/
+gen/
+out/
+release/
+
+# Room schema exports (if exportSchema is enabled in AppDatabase)
+app/schemas/
+
+# =========================
+# Logs & temp files
+# =========================
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+
+# =========================
+# Test / coverage reports
+# =========================
+*.exec
+/coverage/
+jacoco.exec
+
+# =========================
+# OS-specific
+# =========================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.AppleDouble
+.LSOverride
+
+# =========================
+# Misc IDE / editor
+# =========================
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# =========================
+# Crashlytics / Firebase (not currently used, kept for safety if added later)
+# =========================
+google-services.json
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties

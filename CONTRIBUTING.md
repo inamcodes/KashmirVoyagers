@@ -1,191 +1,215 @@
-# 🤝 Contributing to Kashmir Voyagers
+# Contributing to Kashmir Voyagers — Cash Book App
 
-First off, thank you for taking the time to contribute! 🎉  
-This is a simple open-source Android app built for travelers — and every contribution, big or small, is appreciated.
+First off, thank you for considering contributing! 🏔️ This project started as a weekend build for one traveler, but it's now open for anyone who wants to improve it. This document explains how to get set up, how the codebase is organized, and how to submit changes.
 
----
-
-## 📋 Table of Contents
-
-- [Code of Conduct](#code-of-conduct)
-- [Getting Started](#getting-started)
-- [How to Contribute](#how-to-contribute)
-- [Reporting Bugs](#reporting-bugs)
-- [Suggesting Features](#suggesting-features)
-- [Pull Request Process](#pull-request-process)
-- [Coding Guidelines](#coding-guidelines)
-- [Commit Message Format](#commit-message-format)
-- [Ideas & Roadmap](#ideas--roadmap)
+By participating in this project, you agree to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ---
 
-## 📜 Code of Conduct
+## Table of Contents
 
-By participating in this project, you agree to keep it a welcoming and respectful space for everyone. Be kind, constructive, and considerate in all interactions.
-
----
-
-## 🚀 Getting Started
-
-1. **Fork** the repository on GitHub
-2. **Clone** your fork locally
-```bash
-git clone https://github.com/YOUR_USERNAME/KashmirVoyagers.git
-cd KashmirVoyagers
-```
-3. **Open** in Android Studio
-4. **Sync** Gradle and make sure the project builds successfully
-5. **Create** a new branch for your work
-```bash
-git checkout -b feature/your-feature-name
-```
+1. [Ways to Contribute](#ways-to-contribute)
+2. [Development Setup](#development-setup)
+3. [Project Structure](#project-structure)
+4. [Coding Guidelines](#coding-guidelines)
+5. [Commit Message Convention](#commit-message-convention)
+6. [Branching Strategy](#branching-strategy)
+7. [Submitting a Pull Request](#submitting-a-pull-request)
+8. [Reporting Bugs](#reporting-bugs)
+9. [Suggesting Features](#suggesting-features)
+10. [Testing Checklist](#testing-checklist)
+11. [Areas Looking for Help](#areas-looking-for-help)
+12. [License](#license)
 
 ---
 
-## 🛠️ How to Contribute
+## Ways to Contribute
 
-There are many ways to help:
+- 🐛 Reporting bugs
+- 💡 Suggesting features or UX improvements
+- 📝 Improving documentation (README, code comments, this guide)
+- 🧪 Writing tests (the project currently has none — a great first contribution!)
+- 💻 Fixing issues or implementing features from the issue tracker
+- 🌍 Translating strings (the app is currently English-only)
 
-| Type | Examples |
+No contribution is too small. Fixing a typo in a string resource is just as welcome as a new feature.
+
+---
+
+## Development Setup
+
+### Prerequisites
+
+| Tool | Version |
 |---|---|
-| 🐛 **Bug Fix** | Fix a crash, layout issue, or incorrect behavior |
-| ✨ **New Feature** | Add a new screen, functionality, or improvement |
-| 🎨 **UI/UX** | Improve design, animations, or accessibility |
-| 📝 **Docs** | Improve README, add comments, write guides |
-| 🌍 **Translation** | Add support for Urdu, Hindi, or other languages |
-| ♻️ **Refactor** | Clean up code without changing behavior |
-| 🧪 **Testing** | Add unit tests or UI tests |
+| Android Studio | Latest stable |
+| JDK | 11 or higher |
+| Android SDK | API 24+ (compile/target SDK as configured in `build.gradle.kts`) |
+| Git | Any recent version |
+
+### Steps
+
+1. **Fork** the repository on GitHub.
+2. **Clone** your fork locally:
+   ```bash
+   git clone https://github.com/<your-username>/KashmirVoyagers.git
+   cd KashmirVoyagers
+   ```
+3. **Add the upstream remote** so you can keep your fork in sync:
+   ```bash
+   git remote add upstream https://github.com/inamcodes/KashmirVoyagers.git
+   ```
+4. **Open the project** in Android Studio: `File → Open` → select the cloned folder, and let Gradle sync.
+5. **Run the app** on an emulator or physical device (API 24+) to confirm everything builds before you start making changes.
 
 ---
 
-## 🐛 Reporting Bugs
-
-Found a bug? Please open a [GitHub Issue](https://github.com/inamcodes/KashmirVoyagers/issues) and include:
-
-- **Device** name and Android version
-- **Steps to reproduce** the bug
-- **Expected behavior** vs what actually happened
-- **Screenshots** if possible
-
-### Bug Report Template
+## Project Structure
 
 ```
-**Device:** Xiaomi Redmi X / Android 13
-**Steps to reproduce:**
-1. Open the app
-2. Tap Cash In
-3. ...
-
-**Expected:** Entry is saved and balance updates
-**Actual:** App crashes
-
-**Screenshot:** (attach if available)
+app/src/main/
+├── java/com/inam/kashtrack/
+│   ├── MainActivity.java          # Cash book screen + app-launch lock gate
+│   ├── ProfileActivity.java       # Profile (name/photo/password) screen
+│   ├── ProfileGateActivity.java   # Legacy per-visit profile gate (currently unused)
+│   ├── PdfExportActivity.java     # Date-range PDF export + share
+│   ├── PdfGenerator.java          # Pure android.graphics.pdf table renderer
+│   ├── CashEntry.java             # Room entity for a single cash entry
+│   ├── CashEntryAdapter.java      # RecyclerView adapter (date headers + entries)
+│   ├── CashViewModel.java         # ViewModel backing the cash book screen
+│   ├── CashRepository.java        # Room data access wrapper
+│   ├── AppDatabase.java           # Room database + migrations
+│   ├── ProfileRepository.java     # Local (offline) profile storage
+│   ├── EntryPhotoUtils.java       # Per-entry photo capture/copy helpers
+│   ├── PasswordUtils.java         # PBKDF2 password hashing/verification
+│   ├── SwipeActionCallback.java   # Swipe-to-edit / swipe-to-delete gestures
+│   └── DateUtils.java             # Date/time/amount formatting helpers
+└── res/
+    ├── layout/    # One XML file per screen/dialog/list item
+    ├── values/    # strings.xml, colors.xml, themes.xml
+    ├── drawable/  # Vector icons and shape backgrounds
+    └── xml/       # FileProvider paths, backup rules
 ```
+
+If you're adding a new screen or feature, please follow this same one-class-per-responsibility pattern (Activity for UI, Repository for storage, ViewModel for state) rather than putting everything into one Activity.
 
 ---
 
-## 💡 Suggesting Features
+## Coding Guidelines
 
-Have an idea? Open a [GitHub Issue](https://github.com/inamcodes/KashmirVoyagers/issues) with the label `enhancement` and describe:
-
-- **What** the feature does
-- **Why** it would be useful for travelers
-- **How** you imagine it working (rough idea is fine)
-
----
-
-## 🔄 Pull Request Process
-
-1. Make sure your branch is **up to date** with `master`
-```bash
-git fetch origin
-git rebase origin/master
-```
-
-2. **Test** your changes on a real Android device if possible
-
-3. **Push** your branch
-```bash
-git push origin feature/your-feature-name
-```
-
-4. Open a **Pull Request** on GitHub with:
-   - A clear title describing the change
-   - What you changed and why
-   - Screenshots for any UI changes
-
-5. Wait for review — feedback may be given, please be responsive
-
-6. Once approved, your PR will be **merged** 🎉
+- **Language**: Java (the project does not currently use Kotlin — please keep new code in Java unless a migration is explicitly agreed on in an issue first).
+- **Naming**:
+  - Views: prefix by widget type, e.g. `btnSave`, `etDescription`, `tvDialogTitle`, `ivProfilePhoto`.
+  - Classes: `PascalCase`; methods/fields: `camelCase`; constants: `UPPER_SNAKE_CASE`.
+- **Formatting**: Use Android Studio's default Java formatter (`Code → Reformat Code`) before committing.
+- **Comments**: Favor short Javadoc-style comments on public classes/methods explaining *why*, not just *what* (see existing files like `SwipeActionCallback.java` for the expected style).
+- **No new dependencies without discussion**: This app intentionally has a small footprint (Room, AndroidX, Material Components). Open an issue before adding a new library.
+- **Offline-first**: Don't introduce network calls or cloud dependencies — the whole point of this app is to work fully offline.
+- **Resources, not hardcoded strings**: New user-facing text should go in `strings.xml`, not be hardcoded in Java, where reasonably possible.
+- **Null-safety**: Guard against `null`/empty values the way the existing code does (e.g. `CashEntry.hasPhoto()`, `ProfileRepository.getCachedPhotoUrl()`).
 
 ---
 
-## 🧹 Coding Guidelines
+## Commit Message Convention
 
-- Use **Java** (the project does not use Kotlin currently)
-- Follow **Material Design** principles for UI components
-- Keep the app **simple and lightweight** — it's meant for travelers with limited connectivity
-- Use `@string/` resources for all text — no hardcoded strings
-- Use `@color/` resources for all colors — no hardcoded hex in layouts
-- Name variables and methods clearly — prefer readability over brevity
-- Add comments for any logic that isn't immediately obvious
-
----
-
-## ✍️ Commit Message Format
-
-Use clear, prefixed commit messages:
+Please use [Conventional Commits](https://www.conventionalcommits.org/) style where possible:
 
 ```
-Add: brief description of what was added
-Fix: brief description of what was fixed
-Update: brief description of what was changed
-Remove: brief description of what was removed
-Refactor: brief description of code cleanup
-Docs: brief description of documentation changes
+<type>(optional scope): <short summary>
+
+<optional longer description>
 ```
 
-### Examples
+Common types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `style`.
+
+Examples:
 ```
-Add: PDF export feature for cash entries
-Fix: search text color now visible on light background
-Update: bottom navigation simplified to Cash and Profile
-Remove: duplicate string entries from colors.xml
-Docs: add CONTRIBUTING.md
+feat(entries): add camera/gallery photo attachment to cash entries
+fix(pdf): correct running balance when entries span multiple pages
+docs(readme): document the app-launch lock behavior
 ```
 
 ---
 
-## 🗺️ Ideas & Roadmap
+## Branching Strategy
 
-Looking for something to work on? Here are some ideas:
-
-### 🟢 Good First Issues (Beginner Friendly)
-- Add app icon with transparent background
-- Add empty state illustration when no entries exist
-- Improve search bar UI and filtering logic
-- Add "Coming Soon" screen for Profile tab
-
-### 🟡 Intermediate
-- Category tagging for entries (Food 🍔, Transport 🚌, Hotel 🏨 etc.)
-- Filter entries by date range
-- Dark mode support
-- Entry edit and delete functionality
-
-### 🔴 Advanced
-- Charts and graphs for expense visualization
-- Google Drive / local backup and restore
-- Multi-currency support with live exchange rates
-- Notification reminders to log daily expenses
-- Widget for home screen quick entry
+- `main` is always buildable and reflects the latest released state.
+- Create a feature branch off `main` for each change:
+  ```bash
+  git checkout -b feat/short-description
+  ```
+- Keep branches focused — one feature or fix per branch/PR makes review much easier.
+- Rebase or merge `upstream/main` into your branch before opening a PR if it's gone stale.
 
 ---
 
-## 📬 Contact
+## Submitting a Pull Request
 
-Have questions? Feel free to reach out via GitHub:  
-**[@inamcodes](https://github.com/inamcodes)**
+1. Make sure the project **builds successfully** (`Build → Make Project`) and runs on a device/emulator.
+2. Manually test the area you changed (see the [Testing Checklist](#testing-checklist) below).
+3. Push your branch and open a PR against `main`.
+4. In the PR description, include:
+   - What the change does and why.
+   - Screenshots/screen recordings for any UI change.
+   - Any manual testing steps you performed.
+   - Related issue number, if any (e.g. `Closes #12`).
+5. Be responsive to review feedback — small, iterative commits are fine.
+6. Once approved, a maintainer will merge the PR.
 
 ---
 
-> Thank you for helping make Kashmir Voyagers better! 🏔️ Every contribution counts.
+## Reporting Bugs
+
+Please open an issue with:
+
+- **Steps to reproduce** (be as specific as possible).
+- **Expected behavior** vs **actual behavior**.
+- **Device/OS version** (e.g. "Pixel 6, Android 14").
+- **Screenshots or screen recordings**, if applicable.
+- **Logcat output**, if the bug causes a crash.
+
+> ⚠️ If the bug is a **security vulnerability** (e.g. a way to bypass the password lock, or to access another user's local data), please follow [SECURITY.md](SECURITY.md) instead of opening a public issue.
+
+---
+
+## Suggesting Features
+
+Open an issue describing:
+
+- The problem you're trying to solve (not just the feature itself).
+- Who benefits from it (e.g. "travelers who split expenses with a group").
+- Any UI mockups or sketches, if you have them.
+
+Remember this app is intentionally minimal — features that add significant complexity or require network/cloud infrastructure may be declined to keep the app simple and offline-first.
+
+---
+
+## Testing Checklist
+
+There's no automated test suite yet, so please manually verify the relevant rows below before submitting a PR:
+
+- [ ] App builds and launches without crashing.
+- [ ] Cash In / Cash Out entries can be added, edited (swipe left), and deleted (swipe right).
+- [ ] Search filters the entry list correctly.
+- [ ] Cash in Hand / Today's Balance totals update correctly after add/edit/delete.
+- [ ] Attaching a photo (camera and gallery) to an entry works, and tapping the entry opens the photo viewer.
+- [ ] PDF export generates a valid PDF for a selected date range and opens the share sheet.
+- [ ] Profile name/photo can be edited and persist after restarting the app.
+- [ ] Setting/changing/removing a password works as expected from the Profile screen.
+- [ ] With a password set, force-closing and relaunching the app shows the lock screen; backgrounding and returning (without force-close) does **not**.
+
+---
+
+## Areas Looking for Help
+
+- 🧪 Setting up unit/instrumentation tests (Room DAO tests, ViewModel tests, Espresso UI tests).
+- 🌍 Localization (extracting remaining hardcoded strings, adding translations).
+- 🧱 Implementing the placeholder bottom-nav sections (Stock, Bill, Staff, Expense).
+- ♿ Accessibility improvements (content descriptions, larger touch targets, TalkBack support).
+- 🔐 Migrating `SharedPreferences` profile storage to `EncryptedSharedPreferences`.
+
+---
+
+## License
+
+By contributing, you agree that your contributions will be licensed under the same [MIT License](LICENSE) that covers the rest of the project.

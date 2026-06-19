@@ -38,6 +38,15 @@
             android:layout_marginStart="8dp"
             android:textSize="14sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivPhotoIndicator"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            android:src="@android:drawable/ic_menu_camera"
+            android:tint="@color/text_gray"
+            android:visibility="gone" />
     </LinearLayout>
 
     <View

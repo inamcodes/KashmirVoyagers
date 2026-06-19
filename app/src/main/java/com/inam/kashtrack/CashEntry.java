@@ -14,6 +14,11 @@ public class CashEntry {
     private String description;
     private long timestamp;
 
+    // Absolute local file path of an optional photo attached to this entry
+    // (camera capture or gallery pick). Null/empty when no photo is set.
+    // Not part of the constructor (like id) so Room maps it via the setter.
+    private String photoPath;
+
     public CashEntry(double amount, String type, String description, long timestamp) {
         this.amount = amount;
         this.type = type;
@@ -59,5 +64,17 @@ public class CashEntry {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
+    public boolean hasPhoto() {
+        return photoPath != null && !photoPath.isEmpty();
     }
 }

@@ -19,6 +19,16 @@ public class CashEntryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int TYPE_ENTRY = 1;
 
     private List<Object> rows = new ArrayList<>();
+    private OnEntryClickListener entryClickListener;
+
+    /** Fired when an entry row (not a date header) is tapped. */
+    public interface OnEntryClickListener {
+        void onEntryClicked(CashEntry entry);
+    }
+
+    public void setOnEntryClickListener(OnEntryClickListener listener) {
+        this.entryClickListener = listener;
+    }
 
     /**
      * Takes a list of entries (already sorted DESC by timestamp from Room) and
@@ -116,6 +126,13 @@ public class CashEntryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             h.tvAmount.setText((isIn ? "" : "-") + DateUtils.formatAmount(entry.getAmount()));
             h.tvAmount.setTextColor(ContextCompat.getColor(context,
                     isIn ? R.color.green_in : R.color.red_out));
+            h.ivPhotoIndicator.setVisibility(entry.hasPhoto() ? View.VISIBLE : View.GONE);
+
+            holder.itemView.setOnClickListener(v -> {
+                if (entryClickListener != null) {
+                    entryClickListener.onEntryClicked(entry);
+                }
+            });
         }
     }
 
@@ -133,12 +150,14 @@ public class CashEntryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     static class EntryViewHolder extends RecyclerView.ViewHolder {
         TextView tvTime, tvDescription, tvAmount;
+        View ivPhotoIndicator;
 
         EntryViewHolder(View v) {
             super(v);
             tvTime = v.findViewById(R.id.tvTime);
             tvDescription = v.findViewById(R.id.tvDescription);
             tvAmount = v.findViewById(R.id.tvAmount);
+            ivPhotoIndicator = v.findViewById(R.id.ivPhotoIndicator);
         }
     }
 }

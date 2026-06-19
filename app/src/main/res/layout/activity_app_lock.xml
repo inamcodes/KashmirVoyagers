@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_light"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/bg_header_gradient"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cash_book_title"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@android:drawable/ic_lock_lock"
+            android:tint="@color/text_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Enter your password to unlock"
+            android:textColor="@color/text_dark"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etAppLockPassword"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_search_rounded"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:singleLine="true"
+                android:textColor="@color/text_dark"
+                android:textColorHint="@color/text_gray" />
+
+            <ImageButton
+                android:id="@+id/btnAppLockToggle"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="4dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_menu_view" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvAppLockError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Incorrect password"
+            android:textColor="@color/red_out"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAppLockUnlock"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/header_orange_end"
+            android:text="UNLOCK"
+            android:textColor="@android:color/white"
+            app:cornerRadius="24dp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -45,8 +45,10 @@ public class CashViewModel extends AndroidViewModel {
         searchQuery.setValue(query);
     }
 
-    public void addEntry(double amount, String type, String description) {
-        repository.insert(new CashEntry(amount, type, description, System.currentTimeMillis()));
+    public void addEntry(double amount, String type, String description, String photoPath) {
+        CashEntry entry = new CashEntry(amount, type, description, System.currentTimeMillis());
+        entry.setPhotoPath(photoPath);
+        repository.insert(entry);
     }
 
     public void updateEntry(CashEntry entry) {

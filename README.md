@@ -26,13 +26,17 @@ So I built this over a weekend: a single-screen Android app that does exactly wh
 ---
 
 ## 📱 Features
-
+ 
 - 💰 **Cash In / Cash Out** — Log income and expenses with a single tap
 - 🧾 **Cash in Hand** — See your running balance at a glance
 - 📅 **Today's Balance** — Track how much you've spent today
 - 🔍 **Search** — Quickly find past entries
-- 📄 **Export to PDF** — Save or share your cash book as a PDF
-- 🧭 **Simple Navigation** — Cash view and Profile (Coming Soon)
+- 📷 **Photo Attachments** — Attach a receipt photo to any entry via camera capture or gallery pick, then tap the entry to view it full-screen
+- 📄 **Export to PDF** — Save or share your cash book as a clean, table-based PDF for a chosen date range
+- 👤 **Profile** — Set your name and photo, all stored locally on-device
+- 🔒 **Password Protection** — Optionally lock the app with a password; once set, you're asked for it on cold launch (not on quick app-switches), keeping your cash book private
+- 🧭 **Simple Navigation** — Bottom nav for Cash and Profile (Stock / Bill / Staff / Expense coming soon)
+
 
 ---
 
@@ -43,8 +47,10 @@ So I built this over a weekend: a single-screen Android app that does exactly wh
 | **Language** | Java |
 | **Platform** | Android |
 | **Min SDK** | Android 7.0+ |
+| **Local Storage** | Room (SQLite) for entries, SharedPreferences + internal file storage for profile/photos |
 | **UI** | XML Layouts + Material Design Components |
 | **Build** | Gradle (Kotlin DSL) |
+
 
 ---
 
@@ -63,6 +69,16 @@ So I built this over a weekend: a single-screen Android app that does exactly wh
 - Android device or emulator (API 24+)
 
 ### Installation
+
+#### Method 1
+
+1. [Download the latest APK release](https://github.com/inamcodes/KashmirVoyagers/releases/tag/main)
+
+2. Install in your Android Device
+
+3. Have Fun :)
+
+#### Method 2
 
 1. **Clone the repository**
 ```bash
@@ -102,6 +118,15 @@ KashmirVoyagers/
 
 ---
 
+## 🤝 Contributing
+ 
+Contributions, bug reports, and feature ideas are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for setup steps, coding conventions, and how to submit a pull request.
+ 
+This project follows a [Code of Conduct](CODE_OF_CONDUCT.md) — by participating, you're expected to uphold it.
+ 
+## 🛡️ Reporting a Vulnerability
+ 
+Found a security issue? Please **don't** open a public issue — see [SECURITY.md](SECURITY.md) for how to report it responsibly.
 
 ## 📝 License
 
