@@ -1,5 +1,6 @@
 package com.inam.kashtrack;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -66,24 +68,29 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getDisplayEntries().observe(this, entries ->
                 adapter.submitList(CashEntryAdapter.buildRows(entries)));
 
+        // Swipe right = delete (with confirmation), swipe left = edit.
+        SwipeActionCallback swipeCallback = new SwipeActionCallback(this, adapter, new SwipeActionCallback.SwipeListener() {
+            @Override
+            public void onSwipedRight(CashEntry entry, int position) {
+                confirmDelete(entry);
+            }
+
+            @Override
+            public void onSwipedLeft(CashEntry entry, int position) {
+                showEditEntryDialog(entry);
+            }
+        });
+        new ItemTouchHelper(swipeCallback).attachToRecyclerView(recyclerView);
+
         btnBack.setOnClickListener(v -> finish());
 
-        btnPdf.setOnClickListener(v ->
-                Toast.makeText(this, "PDF export coming soon", Toast.LENGTH_SHORT).show());
+        btnPdf.setOnClickListener(v -> showPdfExportDialog());
 
 //        btnHistory.setOnClickListener(v ->
 //                Toast.makeText(this, "Full history coming soon", Toast.LENGTH_SHORT).show());
 
         btnCashIn.setOnClickListener(v -> showAddEntryDialog("IN"));
         btnCashOut.setOnClickListener(v -> showAddEntryDialog("OUT"));
-
-        bottomNav.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.nav_profile) {
-                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-            return true;
-        });
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -101,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
         bottomNav.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.nav_cash) {
                 return true;
+            }
+            if (item.getItemId() == R.id.nav_profile) {
+                startActivity(new Intent(MainActivity.this, ProfileGateActivity.class));
+                return false;
             }
             Toast.makeText(this, item.getTitle() + " coming soon", Toast.LENGTH_SHORT).show();
             return false;
@@ -121,12 +132,45 @@ public class MainActivity extends AppCompatActivity {
         tvTodayBalance.setText("Rs " + DateUtils.formatAmount(today));
     }
 
+    private void confirmDelete(CashEntry entry) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete entry?")
+                .setMessage("This will permanently delete \"" + entry.getDescription() + "\" (Rs "
+                        + DateUtils.formatAmount(entry.getAmount()) + "). This cannot be undone.")
+                .setPositiveButton("Delete", (dialog, which) -> viewModel.deleteEntry(entry))
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .setCancelable(true)
+                .show();
+    }
+
     private void showAddEntryDialog(String type) {
+        showEntryDialog(type, null);
+    }
+
+    private void showEditEntryDialog(CashEntry entry) {
+        showEntryDialog(entry.getType(), entry);
+    }
+
+    /**
+     * Shared dialog for both adding a new entry and editing an existing one.
+     * If existingEntry is null this behaves as "add"; otherwise it pre-fills
+     * the fields and saves back onto the same entry (preserving its id and
+     * original timestamp).
+     */
+    private void showEntryDialog(String type, CashEntry existingEntry) {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_add_entry, null);
         EditText etAmount = view.findViewById(R.id.etAmount);
         EditText etDescription = view.findViewById(R.id.etDescription);
         TextView tvDialogTitle = view.findViewById(R.id.tvDialogTitle);
-        tvDialogTitle.setText("IN".equals(type) ? "Cash In" : "Cash Out");
+
+        boolean isEdit = existingEntry != null;
+        String prefix = isEdit ? "Edit " : "";
+        tvDialogTitle.setText(prefix + ("IN".equals(type) ? "Cash In" : "Cash Out"));
+
+        if (isEdit) {
+            etAmount.setText(DateUtils.formatAmount(existingEntry.getAmount()));
+            etDescription.setText(existingEntry.getDescription());
+        }
 
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(view)
@@ -134,9 +178,12 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnSave = view.findViewById(R.id.btnSave);
         Button btnCancel = view.findViewById(R.id.btnCancel);
+        if (isEdit) {
+            btnSave.setText("UPDATE");
+        }
 
         btnSave.setOnClickListener(v -> {
-            String amountStr = etAmount.getText().toString().trim();
+            String amountStr = etAmount.getText().toString().trim().replace(",", "");
             if (amountStr.isEmpty()) {
                 etAmount.setError("Enter an amount");
                 return;
@@ -155,12 +202,22 @@ public class MainActivity extends AppCompatActivity {
                 description = "IN".equals(type) ? "Cash in hand" : "Cash out";
             }
 
-            viewModel.addEntry(amount, type, description);
+            if (isEdit) {
+                existingEntry.setAmount(amount);
+                existingEntry.setDescription(description);
+                viewModel.updateEntry(existingEntry);
+            } else {
+                viewModel.addEntry(amount, type, description);
+            }
             dialog.dismiss();
         });
 
         btnCancel.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
+    }
+
+    private void showPdfExportDialog() {
+        startActivity(new Intent(this, PdfExportActivity.class));
     }
 }

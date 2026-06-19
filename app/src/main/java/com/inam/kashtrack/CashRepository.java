@@ -29,4 +29,23 @@ public class CashRepository {
     public void insert(CashEntry entry) {
         executor.execute(() -> dao.insert(entry));
     }
+
+    public void update(CashEntry entry) {
+        executor.execute(() -> dao.update(entry));
+    }
+
+    public void delete(CashEntry entry) {
+        executor.execute(() -> dao.delete(entry));
+    }
+
+    public interface RangeCallback {
+        void onResult(List<CashEntry> entries);
+    }
+
+    public void getEntriesBetween(long start, long end, RangeCallback callback) {
+        executor.execute(() -> {
+            List<CashEntry> result = dao.getEntriesBetween(start, end);
+            callback.onResult(result);
+        });
+    }
 }

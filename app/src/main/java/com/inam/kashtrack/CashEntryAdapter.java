@@ -61,6 +61,16 @@ public class CashEntryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         notifyDataSetChanged();
     }
 
+    /**
+     * Returns the CashEntry at the given adapter position, or null if that
+     * position holds a DateHeader (headers are not swipeable).
+     */
+    public CashEntry getEntryAt(int position) {
+        if (position < 0 || position >= rows.size()) return null;
+        Object row = rows.get(position);
+        return row instanceof CashEntry ? (CashEntry) row : null;
+    }
+
     @Override
     public int getItemViewType(int position) {
         return rows.get(position) instanceof DateHeader ? TYPE_HEADER : TYPE_ENTRY;

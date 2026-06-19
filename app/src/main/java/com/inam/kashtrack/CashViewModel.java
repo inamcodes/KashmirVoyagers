@@ -48,4 +48,16 @@ public class CashViewModel extends AndroidViewModel {
     public void addEntry(double amount, String type, String description) {
         repository.insert(new CashEntry(amount, type, description, System.currentTimeMillis()));
     }
+
+    public void updateEntry(CashEntry entry) {
+        repository.update(entry);
+    }
+
+    public void deleteEntry(CashEntry entry) {
+        repository.delete(entry);
+    }
+
+    public void getEntriesBetween(long start, long end, CashRepository.RangeCallback callback) {
+        repository.getEntriesBetween(start, end, callback);
+    }
 }
