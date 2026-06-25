@@ -3,7 +3,7 @@
   <tr style="border: none; background: transparent;">
     <!-- Left Column: Image -->
     <td valign="center" style="border: none; padding-right: 20px;">
-      <img width="248" height="357" alt="Kashmir_app_icon" src="https://github.com/user-attachments/assets/cedf77e8-cdf8-42d2-a767-c3f64cff9f7a" />
+      <img width="248" alt="Kashmir_app_icon" src="https://github.com/user-attachments/assets/cedf77e8-cdf8-42d2-a767-c3f64cff9f7a" />
     </td>
     <!-- Right Column: Text Content -->
     <td valign="center" align="left" style="border: none;">
