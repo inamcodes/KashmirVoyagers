@@ -29,6 +29,7 @@ So I built this over a weekend: a single-screen Android app that does exactly wh
  
 - 💰 **Cash In / Cash Out** — Log income and expenses with a single tap
 - 🧾 **Cash in Hand** — See your running balance at a glance
+- ✏️ **Edit Entry** — Edit your already stored entries
 - 📅 **Today's Balance** — Track how much you've spent today
 - 🔍 **Search** — Quickly find past entries
 - 📷 **Photo Attachments** — Attach a receipt photo to any entry via camera capture or gallery pick, then tap the entry to view it full-screen
