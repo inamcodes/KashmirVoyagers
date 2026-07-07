@@ -109,8 +109,8 @@ public class PdfGenerator {
             float y = MARGIN;
 
             // ---- Branding header ----
-            canvas.drawText("ڪراچي جون رولاڪيون", MARGIN, y + 18, titlePaint);
-            canvas.drawText("Digital کيسو - Report", MARGIN, y + 36, subtitlePaint);
+            canvas.drawText("کيسو Digital", MARGIN, y + 18, titlePaint);
+            canvas.drawText("Cash Book's Report", MARGIN, y + 36, subtitlePaint);
             y += 50;
 
             // ---- User info ----
