@@ -7,8 +7,8 @@
     </td>
     <!-- Right Column: Text Content -->
     <td valign="center" align="left" style="border: none;">
-      <s><h1>Kashmir Voyagers</h1>
-      <h1>ڪراچي جون رولاڪيون — Digital کيسو</h1></s>
+      <s><h4>Kashmir Voyagers</h4>
+      <h4>ڪراچي جون رولاڪيون — Digital کيسو</h4></s>
       <h1>کيسو</h1>
       <p>A simple, lightweight Android app built with love for a brother heading on a trip to Kashmir.</p>
       <p>Designed to help travelers <strong>track cash in, cash out, and daily expenses</strong> — all in one clean screen.</p>
