@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">ڪراچي جون رولاڪيون</string>
+<!--     <string name="app_name">KashmirVoyagers</string> -->
+<!--     <string name="app_name">ڪراچي جون رولاڪيون</string> -->
+    <string name="app_name">کيسو</string>
     <string name="cash_book_title">Cash Book</string>
     <string name="cash_in_hand">Cash in Hand</string>
     <string name="today_balance">Today Balance</string>

@@ -3,11 +3,13 @@
   <tr style="border: none; background: transparent;">
     <!-- Left Column: Image -->
     <td valign="center" style="border: none; padding-right: 20px;">
-      <img width="248" alt="Kashmir_app_icon" src="https://github.com/user-attachments/assets/cedf77e8-cdf8-42d2-a767-c3f64cff9f7a" />
+      <img width="248" height="357" alt="Kashmir_app_icon" src="https://github.com/user-attachments/assets/cedf77e8-cdf8-42d2-a767-c3f64cff9f7a" />
     </td>
     <!-- Right Column: Text Content -->
     <td valign="center" align="left" style="border: none;">
-      <h1>ڪراچي جون رولاڪيون — Digital کيسو</h1>
+      <s><h1>Kashmir Voyagers</h1>
+      <h1>ڪراچي جون رولاڪيون — Digital کيسو</h1></s>
+      <h1>کيسو</h1>
       <p>A simple, lightweight Android app built with love for a brother heading on a trip to Kashmir.</p>
       <p>Designed to help travelers <strong>track cash in, cash out, and daily expenses</strong> — all in one clean screen.</p>
     </td>
@@ -29,7 +31,6 @@ So I built this over a weekend: a single-screen Android app that does exactly wh
  
 - 💰 **Cash In / Cash Out** — Log income and expenses with a single tap
 - 🧾 **Cash in Hand** — See your running balance at a glance
-- ✏️ **Edit Entry** — Edit your already stored entries
 - 📅 **Today's Balance** — Track how much you've spent today
 - 🔍 **Search** — Quickly find past entries
 - 📷 **Photo Attachments** — Attach a receipt photo to any entry via camera capture or gallery pick, then tap the entry to view it full-screen
